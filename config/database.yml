@@ -1,0 +1,47 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
+  pool: 5
+  username: aroma_w
+  password: aroma_w
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  reconnect: false
+  database: aroma_development
+
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+
+test:
+  <<: *default
+  database: aroma_test
+
+staging:
+  adapter: mysql2
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
+  pool: 1
+  database: aroma_staging
+  username: aroma
+  host: localhost
+  password: xU84.VeCmg=4=B.g
+
+production:
+  <<: *default
+  database: aroma_production
+  username: aroma_w
+  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
