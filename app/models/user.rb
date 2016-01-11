@@ -12,4 +12,16 @@
 #
 
 class User < ActiveRecord::Base
+  SEEDS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
+  SEPARATOR = '-'
+
+  enum status: {active: 0, banned: 1}
+  has_many :devices
+  has_one :user_attributes
+  has_many :user_settings
+  has_many :user_clip_recipes
+  has_many :user_like_recipes
+  has_many :recipes
+  has_many :recipe_comments
+
 end

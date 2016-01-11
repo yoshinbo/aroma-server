@@ -12,4 +12,6 @@
 #
 
 class UserAttribute < ActiveRecord::Base
+  belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :region, class_name: 'Region', foreign_key: 'region_id'
 end

@@ -37,14 +37,13 @@ ActiveRecord::Schema.define(version: 20160109140501) do
   add_index "devices", ["user_id", "status"], name: "index_devices_on_user_id_and_status", using: :btree
 
   create_table "ingredients", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
-    t.integer  "recipe_id",  limit: 8,                null: false, unsigned: true
     t.integer  "status",     limit: 3,   default: 0,  null: false
     t.string   "name",       limit: 100, default: "", null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "ingredients", ["recipe_id"], name: "index_ingredients_on_recipe_id", using: :btree
+  add_index "ingredients", ["name"], name: "index_ingredients_on_name", unique: true, using: :btree
 
   create_table "recipe_comments", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.integer  "recipe_id",  limit: 8,                null: false, unsigned: true
@@ -67,16 +66,16 @@ ActiveRecord::Schema.define(version: 20160109140501) do
   add_index "recipe_ingredients", ["recipe_id", "ingredient_id"], name: "index_recipe_ingredients_on_recipe_id_and_ingredient_id", unique: true, using: :btree
 
   create_table "recipes", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
-    t.integer  "user_id",     limit: 8,                null: false, unsigned: true
-    t.integer  "status",      limit: 3,   default: 0,  null: false
-    t.string   "title",       limit: 100, default: "", null: false
-    t.string   "description", limit: 300, default: "", null: false
-    t.integer  "category_id", limit: 3,   default: 0,  null: false
-    t.integer  "like_num",    limit: 4,   default: 0,  null: false
-    t.integer  "comment_num", limit: 4,   default: 0,  null: false
-    t.integer  "clip_num",    limit: 4,   default: 0,  null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "user_id",       limit: 8,                null: false, unsigned: true
+    t.integer  "status",        limit: 3,   default: 0,  null: false
+    t.string   "title",         limit: 100, default: "", null: false
+    t.string   "description",   limit: 300, default: "", null: false
+    t.integer  "category_id",   limit: 3,   default: 0,  null: false
+    t.integer  "liked_num",     limit: 4,   default: 0,  null: false
+    t.integer  "commented_num", limit: 4,   default: 0,  null: false
+    t.integer  "cliped_num",    limit: 4,   default: 0,  null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   add_index "recipes", ["category_id"], name: "index_recipes_on_category_id", using: :btree

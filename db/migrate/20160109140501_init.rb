@@ -77,9 +77,9 @@ class Init < ActiveRecord::Migration
       t.string :description, limit: 300, null: false, default: ""
       t.integer :category_id, limit: 3, null: false, default: 0
 
-      t.integer :like_num, null: false, default: 0
-      t.integer :comment_num, null: false, default: 0
-      t.integer :clip_num, null: false, default: 0
+      t.integer :liked_num, null: false, default: 0
+      t.integer :commented_num, null: false, default: 0
+      t.integer :cliped_num, null: false, default: 0
       t.timestamps null: false
     end
 
@@ -89,13 +89,12 @@ class Init < ActiveRecord::Migration
 
   def create_ingredients
     create_table :ingredients, id: :bigint, unsigned: true do |t|
-      t.bigint :recipe_id, unsigned: true, null: false
       t.integer :status, limit: 3, null: false, default: 0
       t.string :name, limit: 100, null: false, default: ""
       t.timestamps null: false
     end
 
-    add_index :ingredients, :recipe_id
+    add_index :ingredients, :name, unique: true
   end
 
   def create_recipe_ingredients
