@@ -18,5 +18,20 @@
 #
 
 class Device < ActiveRecord::Base
+  enum status: {inactive: 0, active: 1}
+
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+
+  validates :user_id, presence: true, on: :create
+  validates :uuid, presence: true, on: :create
+
+  def fill_from_header(header)
+    self.uuid = header.uuid
+    self.os = header.os
+    self.os_version = header.os_version
+    self.model = header.model
+    self.app_id = header.app_id
+    self.app_version = header.app_version
+    self.app_version_code = header.app_version_code
+  end
 end
