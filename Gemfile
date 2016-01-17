@@ -38,7 +38,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rb-readline', '~> 0.4.2'
 gem 'annotate'
 gem 'activerecord-mysql-awesome'
-gem 'symmetric-encryption'
+gem 'attr_encrypted' # <= gem 'symmetric-encryption'
 gem 'weak_parameters'
 gem 'aws-sdk'
 gem 'dotenv-rails'

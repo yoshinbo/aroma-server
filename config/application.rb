@@ -31,5 +31,21 @@ module AromaServer
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.active_record.schema_format = :sql
+    config.autoload_paths += Dir["#{config.root}/lib"]
+
+    config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
+      g.template_engine false
+      g.test_framework :rspec,
+        fixture: true,
+        fixture_replacement: :factory_girl,
+        view_specs: false,
+        routing_specs: false,
+        helper_specs: false,
+        integration_tool: false
+    end
   end
 end
