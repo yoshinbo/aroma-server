@@ -10,5 +10,6 @@
 #
 
 class Ingredient < ActiveRecord::Base
+  enum status: {active: 0, banned: 99}
   has_many :recipe_ingredients
 end

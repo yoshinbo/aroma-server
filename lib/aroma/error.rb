@@ -35,6 +35,15 @@ module Aroma
       
     class AuthenticationFailed < Base
     end
+
+    class CreateRecipeFailed < Base
+    end
+
+    class CategoryNotFound < Base
+    end
+
+    class IngredientNotFound < Base
+    end
     
     class UserBanned < Base
       DEFAULT_CODE = 20001

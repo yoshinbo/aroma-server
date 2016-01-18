@@ -106,6 +106,8 @@ CREATE TABLE `recipe_ingredients` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `recipe_id` bigint(20) unsigned NOT NULL,
   `ingredient_id` bigint(20) unsigned NOT NULL,
+  `amount` mediumint(9) NOT NULL DEFAULT '0',
+  `order` mediumint(9) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -271,6 +273,6 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-17 10:51:35
+-- Dump completed on 2016-01-18  9:42:38
 INSERT INTO schema_migrations (version) VALUES ('20160109140501');
 

@@ -101,6 +101,8 @@ class Init < ActiveRecord::Migration
     create_table :recipe_ingredients, id: :bigint, unsigned: true do |t|
       t.bigint :recipe_id, unsigned: true, null: false
       t.bigint :ingredient_id, unsigned: true, null: false
+      t.integer :amount, limit: 3, null: false, default: 0
+      t.integer :order, limit: 3, null: false, default: 0
       t.timestamps null: false
     end
 

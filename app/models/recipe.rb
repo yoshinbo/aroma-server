@@ -16,9 +16,15 @@
 #
 
 class Recipe < ActiveRecord::Base
+  enum status: {active: 0, banned: 99, deleted: 1}
+
   has_many :recipe_comments, dependent: :delete_all
   has_many :recipe_ingredients, dependent: :delete_all
 
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
   belongs_to :category, class_name: 'Category', foreign_key: 'category_id'
+
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :category_id, presence: true
 end
