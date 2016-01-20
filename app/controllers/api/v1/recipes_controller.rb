@@ -19,7 +19,7 @@ class Api::V1::RecipesController < Api::ApplicationController
     category = Category.find_by_id(params[:category_id])
     raise Aroma::Error::CategoryNotFound unless category.present?
 
-    @ingredients = []
+    ingredients = []
     recipe_ingredient_map = {}
     logger.debug()
     params[:ingredients].each do |ingredient|
@@ -38,9 +38,9 @@ class Api::V1::RecipesController < Api::ApplicationController
         amount: ingredient[:amount],
         order: ingredient[:order]
       }
-      @ingredients << _ingredient
+      ingredients << _ingredient
     end
-    raise Aroma::Error::IngredientNotFound unless @ingredients.count > 0
+    raise Aroma::Error::IngredientNotFound unless ingredients.count > 0
 
     @recipe = Recipe.create!(
       user_id: user.id,
@@ -51,17 +51,17 @@ class Api::V1::RecipesController < Api::ApplicationController
 
     begin 
       RecipeIngredient.transaction do
-        @recipe_ingredients = []
-        @ingredients.each do |ingredient|
+        recipe_ingredients = []
+        ingredients.each do |ingredient|
           _ingredient = recipe_ingredient_map[ingredient.id]
-          @recipe_ingredients << RecipeIngredient.new(
+          recipe_ingredients << RecipeIngredient.new(
             recipe_id: @recipe.id,
             ingredient_id: ingredient.id,
             amount: _ingredient[:amount],
             order: _ingredient[:order]
           )
         end
-        RecipeIngredient.import @recipe_ingredients
+        RecipeIngredient.import recipe_ingredients
       end
     rescue => e
       @recipe.destroy!
