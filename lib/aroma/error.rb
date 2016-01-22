@@ -39,6 +39,9 @@ module Aroma
     class CreateRecipeFailed < Base
     end
 
+    class RecipeNotFound < Base
+    end
+
     class CategoryNotFound < Base
     end
 

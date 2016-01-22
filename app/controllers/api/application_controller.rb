@@ -12,6 +12,7 @@ module Api
     rescue_from Aroma::Error::AuthenticationFailed, with: -> (e) { render_unauthorized(e) }
     rescue_from Aroma::Error::UserBanned, with: -> (e) { render_unauthorized(e) }
     #rescue_from Aroma::Error::InvalidUserAroma, with: -> (e) { render_bad_request(e) }
+    rescue_from Aroma::Error::RecipeNotFound, with: -> (e) { render_not_found(e) }
     rescue_from Aroma::Error::CategoryNotFound, with: -> (e) { render_not_found(e) }
     rescue_from Aroma::Error::IngredientNotFound, with: -> (e) { render_not_found(e) }
     rescue_from Aroma::Error::CreateRecipeFailed, with: -> (e) { render_not_found(e) }
