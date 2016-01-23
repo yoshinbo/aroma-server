@@ -24,10 +24,6 @@ class Api::V1::RecipesController < Api::ApplicationController
     array :ingredients, required: true
   end
 
-  def index
-    @recipes = Recipe.all
-  end
-
   def show
     @recipe = Recipe.find_by(id: params[:id])
     raise Aroma::Error::RecipeNotFound unless @recipe.present?

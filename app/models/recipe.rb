@@ -27,4 +27,14 @@ class Recipe < ActiveRecord::Base
   validates :title, presence: true
   validates :description, presence: true
   validates :category_id, presence: true
+
+  scope :active, -> { where(status: self.statuses[:active]) }
+  scope :fetch_normal, -> (count, max_id, min_id) {
+    all.tap do |c|
+      c.active
+      c.limit!(count) if count.present?
+      c.where!('id < ?', max_id) if max_id.present?
+      c.where!('id > ?', min_id) if min_id.present?
+    end
+  }
 end

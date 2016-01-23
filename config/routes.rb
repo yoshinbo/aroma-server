@@ -8,7 +8,10 @@ Rails.application.routes.draw do
         #put 'me' => 'me#update'
         #put 'me/setting/:key/:value' => 'me#update_setting'
 
-        resources :recipes, except: [:new]
+        resources :recipes, except: [:index, :new]
+        scope :recipe_timeline do
+          get 'normal' => 'recipe_timeline#normal'
+        end
         #resources :regions, only: [:index]
         #resources :categories, only: [:index]
       end
