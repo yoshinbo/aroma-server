@@ -24,6 +24,10 @@ class Api::V1::RecipesController < Api::ApplicationController
     array :ingredients, required: true
   end
 
+  validates :destroy do
+    integer :id, required: true
+  end
+
   def show
     @recipe = Recipe.find_by(id: params[:id])
     raise Aroma::Error::RecipeNotFound unless @recipe.present?
@@ -76,5 +80,13 @@ class Api::V1::RecipesController < Api::ApplicationController
   end
 
   def destroy
+    @recipe = Recipe.find_by(id: params[:id])
+    raise Aroma::Error::RecipeNotFound unless @recipe.present?
+    raise Aroma::Error::AuthenticationFailed\
+      unless @recipe.user_id == current_user.id
+
+    @recipe.update(
+      status: Recipe.statuses[:deleted]
+    )
   end
 end
