@@ -125,22 +125,20 @@ class Init < ActiveRecord::Migration
     create_table :user_like_recipes, id: :bigint, unsigned: true do |t|
       t.bigint :recipe_id, unsigned: true, null: false
       t.bigint :user_id, unsigned: true, null: false
-      t.integer :status, limit: 3, null: false, default: 0
       t.timestamps null: false
     end
 
-    add_index :user_like_recipes, :recipe_id
+    add_index :user_like_recipes, [:recipe_id, :user_id], unique: true
   end
 
   def create_user_clip_recipes
     create_table :user_clip_recipes, id: :bigint, unsigned: true do |t|
       t.bigint :recipe_id, unsigned: true, null: false
       t.bigint :user_id, unsigned: true, null: false
-      t.integer :status, limit: 3, null: false, default: 0
       t.timestamps null: false
     end
 
-    add_index :user_clip_recipes, :recipe_id
+    add_index :user_clip_recipes, [:recipe_id, :user_id], unique: true
   end
 
   def create_categories

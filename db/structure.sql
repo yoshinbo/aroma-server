@@ -199,11 +199,10 @@ CREATE TABLE `user_clip_recipes` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `recipe_id` bigint(20) unsigned NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
-  `status` mediumint(9) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_user_clip_recipes_on_recipe_id` (`recipe_id`)
+  UNIQUE KEY `index_user_clip_recipes_on_recipe_id_and_user_id` (`recipe_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -218,11 +217,10 @@ CREATE TABLE `user_like_recipes` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `recipe_id` bigint(20) unsigned NOT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
-  `status` mediumint(9) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_user_like_recipes_on_recipe_id` (`recipe_id`)
+  UNIQUE KEY `index_user_like_recipes_on_recipe_id_and_user_id` (`recipe_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -273,6 +271,6 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-18  9:42:38
+-- Dump completed on 2016-01-23 23:15:53
 INSERT INTO schema_migrations (version) VALUES ('20160109140501');
 
