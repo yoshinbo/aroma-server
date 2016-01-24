@@ -6,7 +6,6 @@ class Api::V1::UsersController < Api::ApplicationController
   end
 
   def create
-    logger.debug("Hello, world!")
     user = User.find_by(facebook_id: permitted_params[:facebook_id])
     if user.present?
       @user = user

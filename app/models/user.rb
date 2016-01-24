@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   SEEDS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
   SEPARATOR = '-'
 
-  enum status: {active: 1, banned: 0}
+  enum status: {active: 0, banned: 99, withdraw: 1}
 
   has_many :devices
   has_one :user_attributes
@@ -28,16 +28,17 @@ class User < ActiveRecord::Base
   # TODO: random_iv使いたいがエラーがでるので一旦仮のkeyを設定しておく(要対応)
   #attr_encrypted :secret, :random_iv: true
   attr_encrypted :secret, key: 'yoshikazuapp'
+
   validates :secret, presence: true, on: :create
-  validates :status, presence: true, on: :create
+
   before_validation :generate_secret, on: :create
-  before_validation :init_status, on: :create
 
   class << self
     def fetch_by_token!(token)
       raise Aroma::Error::AuthenticationFailed.new unless token.present?
       id, secret = token.split(SEPARATOR)
       user = find_by(id: id)
+      logger.debug("correct_token: "+id+SEPARATOR+user.secret) if Rails.env.development?
       raise Aroma::Error::AuthenticationFailed.new unless user.present?
       raise Aroma::Error::AuthenticationFailed.new unless user.secret == secret
       user
@@ -72,10 +73,6 @@ class User < ActiveRecord::Base
   def generate_secret
     return if self.secret.present?
     self.secret = Array.new(64) { SEEDS[rand(SEEDS.size)] }.join
-  end
-
-  def init_status
-    self.status = self.class.statuses[:active]
   end
 
   #def setting_value(key)

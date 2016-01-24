@@ -12,6 +12,22 @@
 #
 
 class RecipeComment < ActiveRecord::Base
+  enum status: {active: 0, banned: 99, deleted: 1}
+
   belongs_to :recipe, class_name: 'Recipe', foreign_key: 'recipe_id'
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+
+  validates :recipe_id, presence: true
+  validates :user_id, presence: true
+  validates :comment, presence: true
+
+  scope :active, -> { where(status: self.statuses[:active]) }
+
+  def active?
+    status_value == self.class.statuses[:active]
+  end
+
+  def status_value
+    self.class.statuses[status]
+  end
 end

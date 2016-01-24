@@ -43,6 +43,7 @@ gem 'weak_parameters'
 gem 'aws-sdk'
 gem 'dotenv-rails'
 gem 'deep_merge' # https://github.com/railsconfig/rails_config/issues/13
+gem 'activerecord-import'
 gem 'rails_config', '~> 0.4.2'
 #gem 'rmagick'
 
