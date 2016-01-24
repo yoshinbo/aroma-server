@@ -28,14 +28,6 @@ class Api::V1::RecipesController < Api::ApplicationController
     integer :id, required: true
   end
 
-  validates :like do
-    integer :recipe_id, required: true
-  end
-
-  validates :unlike do
-    integer :recipe_id, required: true
-  end
-
   def show
     @recipe = Recipe.find_by(id: params[:id])
     raise Aroma::Error::RecipeNotFound unless @recipe.present?
@@ -96,33 +88,6 @@ class Api::V1::RecipesController < Api::ApplicationController
     @recipe.update(
       status: Recipe.statuses[:deleted]
     )
-  end
-
-  def like
-    recipe_id = params[:recipe_id]
-    @recipe = Recipe.lock.find_by(id: recipe_id)
-    raise Aroma::Error::RecipeNotFound unless @recipe.present?
-
-    like = UserLikeRecipe.find_by(recipe_id: recipe_id, user_id: current_user.id)
-    unless like.present? then
-      UserLikeRecipe.create(
-        recipe_id: recipe_id,
-        user_id: current_user.id
-      )
-      @recipe.update(liked_num: @recipe.liked_num + 1)
-    end
-  end
-
-  def unlike
-    recipe_id = params[:recipe_id]
-    @recipe = Recipe.lock.find_by(id: recipe_id)
-    raise Aroma::Error::RecipeNotFound unless @recipe.present?
-
-    like = UserLikeRecipe.find_by(recipe_id: recipe_id, user_id: current_user.id)
-    if like.present? then
-      like.destroy
-      @recipe.update(liked_num: @recipe.liked_num - 1) if @recipe.liked_num > 0
-    end
   end
 
 end

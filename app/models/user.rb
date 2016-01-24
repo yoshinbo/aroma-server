@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
       raise Aroma::Error::AuthenticationFailed.new unless token.present?
       id, secret = token.split(SEPARATOR)
       user = find_by(id: id)
-      logger.debug(user.secret)
+      logger.debug("correct_token: "+id+SEPARATOR+user.secret) if Rails.env.development?
       raise Aroma::Error::AuthenticationFailed.new unless user.present?
       raise Aroma::Error::AuthenticationFailed.new unless user.secret == secret
       user
