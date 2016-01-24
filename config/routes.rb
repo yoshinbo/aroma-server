@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         #put 'me/setting/:key/:value' => 'me#update_setting'
 
         resources :recipes, except: [:index, :new]
+        resources :comment_recipe, only: [:index, :create, :destroy]
         resources :like_recipe, only: [:update, :destroy]
         resources :clip_recipe, only: [:update, :destroy]
 

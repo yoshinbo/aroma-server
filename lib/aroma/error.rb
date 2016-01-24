@@ -42,6 +42,9 @@ module Aroma
     class RecipeNotFound < Base
     end
 
+    class RecipeCommentNotFound < Base
+    end
+
     class CategoryNotFound < Base
     end
 

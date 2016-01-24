@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   SEEDS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
   SEPARATOR = '-'
 
-  enum status: {active: 0, banned: 99}
+  enum status: {active: 0, banned: 99, withdraw: 1}
 
   has_many :devices
   has_one :user_attributes

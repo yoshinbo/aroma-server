@@ -6,8 +6,8 @@ class Api::V1::RecipesController < Api::ApplicationController
   end
 
   validates :create do
-    string :title, required: true
-    string :description, required: true
+    string :title, in: 1..30, required: true
+    string :description, in: 1..300, required: true
     integer :category_id, required: true
     array :ingredients, required: true
   end

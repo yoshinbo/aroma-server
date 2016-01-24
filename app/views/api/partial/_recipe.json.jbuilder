@@ -12,6 +12,6 @@ json.recipe_ingredients do
 end
 json.recipe_comments do
   json.array! recipe.recipe_comments do |recipe_comment|
-    json.partial! 'api/partial/recipe_comment', recipe_comment: recipe_comment
+    json.partial! 'api/partial/recipe_comment', recipe_comment: recipe_comment if recipe_comment.active?
   end
 end
