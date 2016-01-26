@@ -8,14 +8,17 @@ Rails.application.routes.draw do
         #put 'me' => 'me#update'
         #put 'me/setting/:key/:value' => 'me#update_setting'
 
+        scope :recipe_timeline do
+          get 'normal' => 'recipe_timeline#normal'
+        end
+
         resources :recipes, except: [:index, :new]
         resources :comment_recipe, only: [:index, :create, :destroy]
         resources :like_recipe, only: [:update, :destroy]
         resources :clip_recipe, only: [:update, :destroy]
 
-        scope :recipe_timeline do
-          get 'normal' => 'recipe_timeline#normal'
-        end
+        resources :user_notices, only: [:index]
+
         #resources :regions, only: [:index]
         #resources :categories, only: [:index]
       end

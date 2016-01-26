@@ -19,6 +19,8 @@ class Api::V1::LikeRecipeController < Api::ApplicationController
         user_id: current_user.id
       )
       @recipe.update(liked_num: @recipe.liked_num + 1)
+
+      UserNotice.insert_type_like(@recipe.user_id, current_user, @recipe)
     end
   end
 

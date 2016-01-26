@@ -19,6 +19,8 @@ class Api::V1::ClipRecipeController < Api::ApplicationController
         user_id: current_user.id
       )
       @recipe.update(cliped_num: @recipe.cliped_num + 1)
+
+      UserNotice.insert_type_clip(@recipe.user_id, current_user, @recipe)
     end
   end
 
