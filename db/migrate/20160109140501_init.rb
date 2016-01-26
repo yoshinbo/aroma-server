@@ -5,6 +5,8 @@ class Init < ActiveRecord::Migration
     create_user_settings
     create_devices
 
+    create_user_notices
+
     create_recipes
     create_ingredients
     create_recipe_ingredients
@@ -67,6 +69,19 @@ class Init < ActiveRecord::Migration
 
     add_index :devices, [:user_id, :os, :uuid, :app_id], unique: true
     add_index :devices, [:user_id, :status]
+  end
+
+  def create_user_notices
+    create_table :user_notices, id: :bigint, unsigned: true do |t|
+      t.bigint :user_id, unsigned: true, null: false
+      t.bigint :from_id, unsigned: true, null: false
+      t.integer :notice_type, limit: 3, null: false, default: 0
+      t.bigint :content_id, unsigned: true, null: false
+      t.string :content, limit: 100, null: false, default: ""
+      t.timestamps null: false
+    end
+
+    add_index :user_notices, :user_id, unique: true
   end
 
   def create_recipes

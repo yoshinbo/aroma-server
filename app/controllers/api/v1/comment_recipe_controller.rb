@@ -5,7 +5,7 @@ class Api::V1::CommentRecipeController < Api::ApplicationController
 
   validates :create do
     integer :recipe_id, required: true
-    string :comment, in: 1..300, required: true
+    string :comment, in: 1..255, required: true
   end
 
   validates :destroy do
@@ -26,6 +26,8 @@ class Api::V1::CommentRecipeController < Api::ApplicationController
       comment: params[:comment]
     )
     @recipe.update(commented_num: @recipe.commented_num + 1)
+
+    UserNotice.insert_type_comment(@recipe.user_id, current_user, @recipe)
   end 
 
   def destroy

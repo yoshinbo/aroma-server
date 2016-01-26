@@ -225,6 +225,27 @@ CREATE TABLE `user_like_recipes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user_notices`
+--
+
+DROP TABLE IF EXISTS `user_notices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_notices` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `from_id` bigint(20) unsigned NOT NULL,
+  `notice_type` mediumint(9) NOT NULL DEFAULT '0',
+  `content_id` bigint(20) unsigned NOT NULL,
+  `content` varchar(100) NOT NULL DEFAULT '',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_user_notices_on_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `user_settings`
 --
 
@@ -271,6 +292,6 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-24  9:59:28
+-- Dump completed on 2016-01-25  8:35:01
 INSERT INTO schema_migrations (version) VALUES ('20160109140501');
 
